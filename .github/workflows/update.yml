@@ -1,0 +1,67 @@
+name: 🔁 Clean Auto HTML Updater
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+    - cron: '0 */6 * * *'
+    - cron: '0 */12 * * *'
+    - cron: '0 0 */7 * *'
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install feedparser beautifulsoup4
+
+      - name: Generate HTML files
+        run: |
+          python generate_latest_html.py
+          python generate_24hr_html.py
+          python generate_7day_html.py
+          python generate_psl_live.py
+          python generate_top5_sports.py
+          python generate_sports_weekly.py
+
+      - name: Debug GH_PAT
+        run: echo "GH_PAT=${{ secrets.GH_TOKEN_CLEAN }}"
+
+      - name: Commit and Push changes
+        env:
+          GH_PAT: ${{ secrets.GH_TOKEN_CLEAN }}
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          # Construct the repository URL manually
+          REPO_URL="https://${GH_PAT}@github.com/SciTechpk/spnn-news-auto.git"
+          echo "Using repository URL: $REPO_URL"
+
+          # Set the remote URL
+          git remote set-url origin "$REPO_URL"
+
+          # Pull the latest changes
+          git pull origin main || echo "No changes to pull"
+
+          # Add HTML files if they exist
+          if ls *.html 1> /dev/null 2>&1; then
+            git add *.html
+          else
+            echo "No HTML files to commit"
+          fi
+
+          # Commit changes
+          git commit -m "🤖 Auto update HTML files" || echo "No changes to commit"
+
+          # Push changes to the main branch
+          git push origin main || echo "Failed to push changes"
