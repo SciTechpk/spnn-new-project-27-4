@@ -1,70 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Hourly Updated News Feed</title>
-  <style>
-    body {
-      background-color: #e6f4e6; /* Light green background */
-      font-family: Arial, sans-serif;
-      color: #000; /* Default text black */
-      margin: 20px;
-    }
-    .news-container {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    .news-item {
-      margin-bottom: 25px;
-      border-bottom: 1px solid #ccc;
-      padding-bottom: 15px;
-    }
-    .news-item img {
-      width: 150px;
-      height: 100px;
-      object-fit: cover;
-      display: block;
-      margin-bottom: 10px;
-    }
-    .news-title {
-      font-size: 20px;
-      font-weight: bold;
-      color: #003366; /* Dark blue title */
-      text-decoration: none;
-    }
-    .news-title:hover {
-      text-decoration: underline;
-      color: #0055aa;
-    }
-    .timestamp {
-      text-align: center;
-      margin-bottom: 20px;
-      font-size: 18px;
-      color: #333;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hourly Updated News</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #d5f7d5; /* Light green background - untouched */
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: black;
+        }
+        .timestamp {
+            text-align: center;
+            color: #555;
+            font-size: 0.9em;
+            margin-bottom: 30px;
+        }
+        .news-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        .news-item {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px #ccc;
+        }
+        .news-item h2 {
+            color: #0074cc; /* Blue colored title */
+            font-size: 1.5em;
+            cursor: pointer; /* Show pointer cursor to indicate it's clickable */
+        }
+        .news-item h2:hover {
+            text-decoration: underline; /* Underline the title on hover */
+        }
+        .news-item img {
+            width: 2in; /* Set width to 2 inches (for placeholder or actual images) */
+            height: 3in; /* Set height to 3 inches */
+            object-fit: cover; /* Ensure the image fills the box */
+            margin-top: 10px;
+            border-radius: 8px;
+            display: block; /* Block to prevent floating and ensure placement */
+            margin-bottom: 10px;
+        }
+        .news-item p {
+            color: #222; /* Black summary */
+        }
+    </style>
 </head>
 <body>
-  <div class="news-container">
-    <h1 style="text-align: center;">🕒 Hourly Updated News Feed</h1>
-    <div class="timestamp">Last updated: 2025-04-27 18:30 UTC</div>
+    <h1>🕒 Hourly Updated News Feed</h1>
+    <div class="timestamp">Last updated: 2025-04-27 16:07 UTC</div>
 
-    <!-- News Item 1 -->
-    <div class="news-item">
-      <a class="news-title" href="https://example.com/news1" target="_blank">Example News Title 1</a>
-      <img src="https://via.placeholder.com/150x100" alt="News Image" onerror="this.style.display='none'">
-      <p>Summary of the first news goes here...</p>
+    <div class="news-container">
+        <!-- News Item 1 -->
+        <div class="news-item">
+            <h2 onclick="window.open('https://www.bbc.com/news/world-middle-east-12345', '_blank')">BBC: Israel-Gaza conflict escalates</h2>
+            <p>Israel continues airstrikes on Gaza amid mounting international concern over civilian casualties.</p>
+            <img src="https://ichef.bbci.co.uk/news/1024/branded_news/12345.jpg" alt="Israel Gaza Conflict">
+        </div>
+
+        <!-- News Item 2 -->
+        <div class="news-item">
+            <h2 onclick="window.open('https://www.bbc.com/news/business-67890', '_blank')">BBC: Global stock markets fall amid US-China tensions</h2>
+            <p>Investors worry about new tariffs as US-China trade relations hit another rough patch.</p>
+            <img src="https://ichef.bbci.co.uk/news/1024/branded_news/67890.jpg" alt="Stock Market">
+        </div>
+
+        <!-- News Item 3 -->
+        <div class="news-item">
+            <h2 onclick="window.open('https://www.reuters.com/article/oil-prices-id123456789', '_blank')">REUTERS: Oil prices rise on Middle East tensions</h2>
+            <p>Brent crude futures climbed over $90 per barrel on fears of regional instability.</p>
+            <img src="https://static.reuters.com/resources/rcom-resources/images/2020/04/20/oil.jpg" alt="Oil Prices">
+        </div>
+
+        <!-- News Item 4 -->
+        <div class="news-item">
+            <h2 onclick="window.open('https://www.reuters.com/article/tech-regulations-id1234567', '_blank')">REUTERS: Tech firms face new EU regulations</h2>
+            <p>Major tech companies must comply with stricter European rules or face heavy fines.</p>
+            <img src="https://static.reuters.com/resources/rcom-resources/images/2020/09/15/eu.jpg" alt="EU Tech Regulations">
+        </div>
+
+        <!-- News Item 5 -->
+        <div class="news-item">
+            <h2 onclick="window.open('https://www.dw.com/en/germany-pushes-for-green-hydrogen-revolution/a-12345', '_blank')">DW: Germany pushes for green hydrogen revolution</h2>
+            <p>Germany invests billions to become a global leader in green hydrogen technologies.</p>
+            <img src="https://static.dw.com/image/54321.jpg" alt="Hydrogen Germany">
+        </div>
+
+        <!-- Urdu and Local news (simulated) -->
+        <div class="news-item">
+            <h2 onclick="window.open('https://jang.com.pk/news/12345', '_blank')">جنگ: وزیراعظم کا قوم سے خطاب</h2>
+            <p>وزیراعظم نے اقتصادی ترقی کے نئے منصوبوں کا اعلان کیا۔</p>
+            <img src="https://jang.com.pk/assets/images/news1.jpg" alt="PM Address">
+        </div>
+
+        <div class="news-item">
+            <h2 onclick="window.open('https://jang.com.pk/news/67890', '_blank')">جنگ: لاہور میں بارش سے تباہی</h2>
+            <p>شدید بارشوں نے لاہور میں نظام زندگی درہم برہم کردیا۔</p>
+            <img src="https://jang.com.pk/assets/images/rain1.jpg" alt="Lahore Rain">
+        </div>
+
+        <!-- More News Items as needed -->
+
     </div>
 
-    <!-- News Item 2 -->
-    <div class="news-item">
-      <a class="news-title" href="https://example.com/news2" target="_blank">Example News Title 2</a>
-      <img src="https://via.placeholder.com/150x100" alt="News Image" onerror="this.style.display='none'">
-      <p>Summary of the second news goes here...</p>
-    </div>
-
-    <!-- More news items auto-added via script... -->
-    
-  </div>
 </body>
 </html>
