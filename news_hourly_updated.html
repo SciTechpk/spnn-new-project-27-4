@@ -31,22 +31,21 @@
             border-radius: 10px;
             box-shadow: 0px 0px 10px #ccc;
         }
+        .news-item img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+            border-radius: 8px;
+        }
         .news-item h2 {
             color: #0074cc; /* Blue colored title */
             font-size: 1.5em;
-            cursor: pointer; /* Show pointer cursor to indicate it's clickable */
+            cursor: pointer;
+            transition: color 0.3s ease;
         }
         .news-item h2:hover {
-            text-decoration: underline; /* Underline the title on hover */
-        }
-        .news-item img {
-            width: 2in; /* Set width to 2 inches (for placeholder or actual images) */
-            height: 3in; /* Set height to 3 inches */
-            object-fit: cover; /* Ensure the image fills the box */
-            margin-top: 10px;
-            border-radius: 8px;
-            display: block; /* Block to prevent floating and ensure placement */
-            margin-bottom: 10px;
+            color: #ff6347; /* Change color on hover */
+            text-decoration: underline; /* Underline on hover */
         }
         .news-item p {
             color: #222; /* Black summary */
@@ -60,55 +59,172 @@
     <div class="news-container">
         <!-- News Item 1 -->
         <div class="news-item">
-            <h2 onclick="window.open('https://www.bbc.com/news/world-middle-east-12345', '_blank')">BBC: Israel-Gaza conflict escalates</h2>
+            <a href="https://bbc.com/news/12345" target="_blank">
+                <h2>BBC: Israel-Gaza conflict escalates</h2>
+            </a>
             <p>Israel continues airstrikes on Gaza amid mounting international concern over civilian casualties.</p>
             <img src="https://ichef.bbci.co.uk/news/1024/branded_news/12345.jpg" alt="Israel Gaza Conflict">
         </div>
 
         <!-- News Item 2 -->
         <div class="news-item">
-            <h2 onclick="window.open('https://www.bbc.com/news/business-67890', '_blank')">BBC: Global stock markets fall amid US-China tensions</h2>
+            <a href="https://bbc.com/news/67890" target="_blank">
+                <h2>BBC: Global stock markets fall amid US-China tensions</h2>
+            </a>
             <p>Investors worry about new tariffs as US-China trade relations hit another rough patch.</p>
             <img src="https://ichef.bbci.co.uk/news/1024/branded_news/67890.jpg" alt="Stock Market">
         </div>
 
         <!-- News Item 3 -->
         <div class="news-item">
-            <h2 onclick="window.open('https://www.reuters.com/article/oil-prices-id123456789', '_blank')">REUTERS: Oil prices rise on Middle East tensions</h2>
+            <a href="https://reuters.com/article/oil-prices" target="_blank">
+                <h2>REUTERS: Oil prices rise on Middle East tensions</h2>
+            </a>
             <p>Brent crude futures climbed over $90 per barrel on fears of regional instability.</p>
             <img src="https://static.reuters.com/resources/rcom-resources/images/2020/04/20/oil.jpg" alt="Oil Prices">
         </div>
 
         <!-- News Item 4 -->
         <div class="news-item">
-            <h2 onclick="window.open('https://www.reuters.com/article/tech-regulations-id1234567', '_blank')">REUTERS: Tech firms face new EU regulations</h2>
+            <a href="https://reuters.com/article/tech-eu-regulations" target="_blank">
+                <h2>REUTERS: Tech firms face new EU regulations</h2>
+            </a>
             <p>Major tech companies must comply with stricter European rules or face heavy fines.</p>
             <img src="https://static.reuters.com/resources/rcom-resources/images/2020/09/15/eu.jpg" alt="EU Tech Regulations">
         </div>
 
         <!-- News Item 5 -->
         <div class="news-item">
-            <h2 onclick="window.open('https://www.dw.com/en/germany-pushes-for-green-hydrogen-revolution/a-12345', '_blank')">DW: Germany pushes for green hydrogen revolution</h2>
+            <a href="https://dw.com/green-hydrogen" target="_blank">
+                <h2>DW: Germany pushes for green hydrogen revolution</h2>
+            </a>
             <p>Germany invests billions to become a global leader in green hydrogen technologies.</p>
             <img src="https://static.dw.com/image/54321.jpg" alt="Hydrogen Germany">
         </div>
 
+        <!-- News Item 6 -->
+        <div class="news-item">
+            <a href="https://dw.com/india-moon-rover" target="_blank">
+                <h2>DW: India launches moon rover successfully</h2>
+            </a>
+            <p>India’s Chandrayaan-3 rover begins exploration of lunar surface after successful landing.</p>
+            <img src="https://static.dw.com/image/98765.jpg" alt="India Moon Rover">
+        </div>
+
+        <!-- News Item 7 -->
+        <div class="news-item">
+            <a href="https://apnews.com/tornadoes-midwest" target="_blank">
+                <h2>AP: Tornadoes wreak havoc across Midwest USA</h2>
+            </a>
+            <p>Hundreds of homes destroyed and thousands without power after violent storms.</p>
+            <img src="https://apnews.com/images/tornado.jpg" alt="Midwest Tornadoes">
+        </div>
+
+        <!-- News Item 8 -->
+        <div class="news-item">
+            <a href="https://apnews.com/biden-g7" target="_blank">
+                <h2>AP: Biden meets G7 leaders in Tokyo</h2>
+            </a>
+            <p>US President Joe Biden discusses Ukraine, climate change, and global economy with world leaders.</p>
+            <img src="https://apnews.com/images/g7summit.jpg" alt="G7 Tokyo">
+        </div>
+
         <!-- Urdu and Local news (simulated) -->
         <div class="news-item">
-            <h2 onclick="window.open('https://jang.com.pk/news/12345', '_blank')">جنگ: وزیراعظم کا قوم سے خطاب</h2>
+            <a href="https://jang.com.pk/prime-minister-speech" target="_blank">
+                <h2>جنگ: وزیراعظم کا قوم سے خطاب</h2>
+            </a>
             <p>وزیراعظم نے اقتصادی ترقی کے نئے منصوبوں کا اعلان کیا۔</p>
             <img src="https://jang.com.pk/assets/images/news1.jpg" alt="PM Address">
         </div>
 
         <div class="news-item">
-            <h2 onclick="window.open('https://jang.com.pk/news/67890', '_blank')">جنگ: لاہور میں بارش سے تباہی</h2>
+            <a href="https://jang.com.pk/lahore-rain" target="_blank">
+                <h2>جنگ: لاہور میں بارش سے تباہی</h2>
+            </a>
             <p>شدید بارشوں نے لاہور میں نظام زندگی درہم برہم کردیا۔</p>
             <img src="https://jang.com.pk/assets/images/rain1.jpg" alt="Lahore Rain">
         </div>
 
-        <!-- More News Items as needed -->
+        <div class="news-item">
+            <a href="https://express.pk/education-policy" target="_blank">
+                <h2>ایکسپریس: نئے تعلیمی نصاب کا اعلان</h2>
+            </a>
+            <p>حکومت نے تمام تعلیمی اداروں کے لیے نیا نصاب متعارف کروا دیا۔</p>
+            <img src="https://express.pk/images/education.jpg" alt="Education Policy">
+        </div>
 
+        <div class="news-item">
+            <a href="https://express.pk/karachi-traffic" target="_blank">
+                <h2>ایکسپریس: کراچی میں ٹریفک جام کی صورتحال</h2>
+            </a>
+            <p>شہر قائد میں جاری ترقیاتی کاموں کے باعث ٹریفک کا بہاؤ متاثر۔</p>
+            <img src="https://express.pk/images/traffic.jpg" alt="Karachi Traffic">
+        </div>
+
+        <div class="news-item">
+            <a href="https://dawn.com/pakistan-exports" target="_blank">
+                <h2>DAWN: Pakistan's exports rise by 12%</h2>
+            </a>
+            <p>Government announces positive trend in export figures for the third consecutive quarter.</p>
+            <img src="https://dawn.com/assets/images/export.jpg" alt="Exports">
+        </div>
+
+        <div class="news-item">
+            <a href="https://dawn.com/karachi-cold-wave" target="_blank">
+                <h2>DAWN: Karachi weather turns cold</h2>
+            </a>
+            <p>Unexpected cold wave hits the southern port city with temperatures dropping below normal.</p>
+            <img src="https://dawn.com/assets/images/coldwave.jpg" alt="Karachi Cold">
+        </div>
+
+        <div class="news-item">
+            <a href="https://brecorder.com/rupee-dollar-stabilizes" target="_blank">
+                <h2>Business Recorder: Rupee stabilizes against USD</h2>
+            </a>
+            <p>Pakistani rupee shows slight recovery after hitting historic lows last month.</p>
+            <img src="https://brecorder.com/assets/images/rupee.jpg" alt="Rupee Dollar">
+        </div>
+
+        <div class="news-item">
+            <a href="https://brecorder.com/kse100-rises" target="_blank">
+                <h2>Business Recorder: KSE-100 index gains 500 points</h2>
+            </a>
+            <p>Positive investor sentiment drives rally at Pakistan Stock Exchange.</p>
+            <img src="https://brecorder.com/assets/images/kse.jpg" alt="KSE100">
+        </div>
+
+        <div class="news-item">
+            <a href="https://aljazeera.com/sudan-crisis" target="_blank">
+                <h2>Al Jazeera: Sudan crisis deepens</h2>
+            </a>
+            <p>Ongoing conflict in Sudan displaces hundreds of thousands.</p>
+            <img src="https://aljazeera.com/images/sudan.jpg" alt="Sudan Crisis">
+        </div>
+
+        <div class="news-item">
+            <a href="https://aljazeera.com/africa-climate-change" target="_blank">
+                <h2>Al Jazeera: Climate change hits Africa hard</h2>
+            </a>
+            <p>Severe drought and floods devastate crops and livelihoods across African nations.</p>
+            <img src="https://aljazeera.com/images/climateafrica.jpg" alt="Africa Climate">
+        </div>
+
+        <div class="news-item">
+            <a href="https://trtworld.com/turkey-new-fighter-jet" target="_blank">
+                <h2>TRT: Türkiye unveils new fighter jet</h2>
+            </a>
+            <p>Türkiye showcases its fifth-generation stealth fighter at major defense expo.</p>
+            <img src="https://trtworld.com/images/fighterjet.jpg" alt="Turkey Jet">
+        </div>
+
+        <div class="news-item">
+            <a href="https://trtworld.com/syrian-refugees-return" target="_blank">
+                <h2>TRT: Syrian refugees to return home</h2>
+            </a>
+            <p>Türkiye and Syria reach tentative agreement on voluntary refugee return program.</p>
+            <img src="https://trtworld.com/images/refugees.jpg" alt="Syria Refugees">
+        </div>
     </div>
-
 </body>
 </html>
