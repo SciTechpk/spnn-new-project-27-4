@@ -1,186 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hourly Updated News</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #d5f7d5; /* Light green background - untouched */
-            margin: 20px;
-        }
-        h1 {
-            text-align: center;
-            color: black;
-        }
-        .timestamp {
-            text-align: center;
-            color: #555;
-            font-size: 0.9em;
-            margin-bottom: 30px;
-        }
-        .news-container {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-        .news-item {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px #ccc;
-        }
-        .news-item img {
-            max-width: 100%;
-            height: auto;
-            margin-top: 10px;
-            border-radius: 8px;
-        }
-        .news-item h2 {
-            color: #0074cc; /* Blue colored title */
-            font-size: 1.5em;
-        }
-        .news-item p {
-            color: #222; /* Black summary */
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Hourly Updated News Feed</title>
+  <style>
+    body {
+      background-color: #e6f4e6; /* Light green background */
+      font-family: Arial, sans-serif;
+      color: #000; /* Default text black */
+      margin: 20px;
+    }
+    .news-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .news-item {
+      margin-bottom: 25px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 15px;
+    }
+    .news-item img {
+      width: 150px;
+      height: 100px;
+      object-fit: cover;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .news-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #003366; /* Dark blue title */
+      text-decoration: none;
+    }
+    .news-title:hover {
+      text-decoration: underline;
+      color: #0055aa;
+    }
+    .timestamp {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 18px;
+      color: #333;
+    }
+  </style>
 </head>
 <body>
-    <h1>🕒 Hourly Updated News Feed</h1>
-    <div class="timestamp">Last updated: 2025-04-27 16:07 UTC</div>
+  <div class="news-container">
+    <h1 style="text-align: center;">🕒 Hourly Updated News Feed</h1>
+    <div class="timestamp">Last updated: 2025-04-27 18:30 UTC</div>
 
-    <div class="news-container">
-        <!-- News Item 1 -->
-        <div class="news-item">
-            <h2>BBC: Israel-Gaza conflict escalates</h2>
-            <p>Israel continues airstrikes on Gaza amid mounting international concern over civilian casualties.</p>
-            <img src="https://ichef.bbci.co.uk/news/1024/branded_news/12345.jpg" alt="Israel Gaza Conflict">
-        </div>
-
-        <!-- News Item 2 -->
-        <div class="news-item">
-            <h2>BBC: Global stock markets fall amid US-China tensions</h2>
-            <p>Investors worry about new tariffs as US-China trade relations hit another rough patch.</p>
-            <img src="https://ichef.bbci.co.uk/news/1024/branded_news/67890.jpg" alt="Stock Market">
-        </div>
-
-        <!-- News Item 3 -->
-        <div class="news-item">
-            <h2>REUTERS: Oil prices rise on Middle East tensions</h2>
-            <p>Brent crude futures climbed over $90 per barrel on fears of regional instability.</p>
-            <img src="https://static.reuters.com/resources/rcom-resources/images/2020/04/20/oil.jpg" alt="Oil Prices">
-        </div>
-
-        <!-- News Item 4 -->
-        <div class="news-item">
-            <h2>REUTERS: Tech firms face new EU regulations</h2>
-            <p>Major tech companies must comply with stricter European rules or face heavy fines.</p>
-            <img src="https://static.reuters.com/resources/rcom-resources/images/2020/09/15/eu.jpg" alt="EU Tech Regulations">
-        </div>
-
-        <!-- News Item 5 -->
-        <div class="news-item">
-            <h2>DW: Germany pushes for green hydrogen revolution</h2>
-            <p>Germany invests billions to become a global leader in green hydrogen technologies.</p>
-            <img src="https://static.dw.com/image/54321.jpg" alt="Hydrogen Germany">
-        </div>
-
-        <!-- News Item 6 -->
-        <div class="news-item">
-            <h2>DW: India launches moon rover successfully</h2>
-            <p>India’s Chandrayaan-3 rover begins exploration of lunar surface after successful landing.</p>
-            <img src="https://static.dw.com/image/98765.jpg" alt="India Moon Rover">
-        </div>
-
-        <!-- News Item 7 -->
-        <div class="news-item">
-            <h2>AP: Tornadoes wreak havoc across Midwest USA</h2>
-            <p>Hundreds of homes destroyed and thousands without power after violent storms.</p>
-            <img src="https://apnews.com/images/tornado.jpg" alt="Midwest Tornadoes">
-        </div>
-
-        <!-- News Item 8 -->
-        <div class="news-item">
-            <h2>AP: Biden meets G7 leaders in Tokyo</h2>
-            <p>US President Joe Biden discusses Ukraine, climate change, and global economy with world leaders.</p>
-            <img src="https://apnews.com/images/g7summit.jpg" alt="G7 Tokyo">
-        </div>
-
-        <!-- Urdu and Local news (simulated) -->
-        <div class="news-item">
-            <h2>جنگ: وزیراعظم کا قوم سے خطاب</h2>
-            <p>وزیراعظم نے اقتصادی ترقی کے نئے منصوبوں کا اعلان کیا۔</p>
-            <img src="https://jang.com.pk/assets/images/news1.jpg" alt="PM Address">
-        </div>
-
-        <div class="news-item">
-            <h2>جنگ: لاہور میں بارش سے تباہی</h2>
-            <p>شدید بارشوں نے لاہور میں نظام زندگی درہم برہم کردیا۔</p>
-            <img src="https://jang.com.pk/assets/images/rain1.jpg" alt="Lahore Rain">
-        </div>
-
-        <div class="news-item">
-            <h2>ایکسپریس: نئے تعلیمی نصاب کا اعلان</h2>
-            <p>حکومت نے تمام تعلیمی اداروں کے لیے نیا نصاب متعارف کروا دیا۔</p>
-            <img src="https://express.pk/images/education.jpg" alt="Education Policy">
-        </div>
-
-        <div class="news-item">
-            <h2>ایکسپریس: کراچی میں ٹریفک جام کی صورتحال</h2>
-            <p>شہر قائد میں جاری ترقیاتی کاموں کے باعث ٹریفک کا بہاؤ متاثر۔</p>
-            <img src="https://express.pk/images/traffic.jpg" alt="Karachi Traffic">
-        </div>
-
-        <div class="news-item">
-            <h2>DAWN: Pakistan's exports rise by 12%</h2>
-            <p>Government announces positive trend in export figures for the third consecutive quarter.</p>
-            <img src="https://dawn.com/assets/images/export.jpg" alt="Exports">
-        </div>
-
-        <div class="news-item">
-            <h2>DAWN: Karachi weather turns cold</h2>
-            <p>Unexpected cold wave hits the southern port city with temperatures dropping below normal.</p>
-            <img src="https://dawn.com/assets/images/coldwave.jpg" alt="Karachi Cold">
-        </div>
-
-        <div class="news-item">
-            <h2>Business Recorder: Rupee stabilizes against USD</h2>
-            <p>Pakistani rupee shows slight recovery after hitting historic lows last month.</p>
-            <img src="https://brecorder.com/assets/images/rupee.jpg" alt="Rupee Dollar">
-        </div>
-
-        <div class="news-item">
-            <h2>Business Recorder: KSE-100 index gains 500 points</h2>
-            <p>Positive investor sentiment drives rally at Pakistan Stock Exchange.</p>
-            <img src="https://brecorder.com/assets/images/kse.jpg" alt="KSE100">
-        </div>
-
-        <div class="news-item">
-            <h2>Al Jazeera: Sudan crisis deepens</h2>
-            <p>Ongoing conflict in Sudan displaces hundreds of thousands.</p>
-            <img src="https://aljazeera.com/images/sudan.jpg" alt="Sudan Crisis">
-        </div>
-
-        <div class="news-item">
-            <h2>Al Jazeera: Climate change hits Africa hard</h2>
-            <p>Severe drought and floods devastate crops and livelihoods across African nations.</p>
-            <img src="https://aljazeera.com/images/climateafrica.jpg" alt="Africa Climate">
-        </div>
-
-        <div class="news-item">
-            <h2>TRT: Türkiye unveils new fighter jet</h2>
-            <p>Türkiye showcases its fifth-generation stealth fighter at major defense expo.</p>
-            <img src="https://trtworld.com/images/fighterjet.jpg" alt="Turkey Jet">
-        </div>
-
-        <div class="news-item">
-            <h2>TRT: Syrian refugees to return home</h2>
-            <p>Türkiye and Syria reach tentative agreement on voluntary refugee return program.</p>
-            <img src="https://trtworld.com/images/refugees.jpg" alt="Syria Refugees">
-        </div>
-
+    <!-- News Item 1 -->
+    <div class="news-item">
+      <a class="news-title" href="https://example.com/news1" target="_blank">Example News Title 1</a>
+      <img src="https://via.placeholder.com/150x100" alt="News Image" onerror="this.style.display='none'">
+      <p>Summary of the first news goes here...</p>
     </div>
 
+    <!-- News Item 2 -->
+    <div class="news-item">
+      <a class="news-title" href="https://example.com/news2" target="_blank">Example News Title 2</a>
+      <img src="https://via.placeholder.com/150x100" alt="News Image" onerror="this.style.display='none'">
+      <p>Summary of the second news goes here...</p>
+    </div>
+
+    <!-- More news items auto-added via script... -->
+    
+  </div>
 </body>
 </html>
