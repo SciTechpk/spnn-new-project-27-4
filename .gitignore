@@ -1,8 +1,3 @@
-"*.html" 
-"__pycache__/" 
-".env" 
-news_24hr.html
-news_7day.html
 *.html
-".env" 
+__pycache__/
 .env
