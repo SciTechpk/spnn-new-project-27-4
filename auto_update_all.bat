@@ -52,16 +52,22 @@ py generate_youtube_iframes.py || (
 
 :: Step 4: Push updated HTML files to GitHub
 echo 🔧 Committing and pushing updates to GitHub...
-git add *.html || (
+
+:: Add all .html files, including those in subdirectories
+git add *.html **/*.html || (
     echo ❌ Failed to stage .html files
     pause
     exit /b 1
 )
-git commit -m "🔄 Auto-update: News, YouTube, and other content" || (
+
+:: Commit with a more descriptive message
+git commit -m "🔄 Auto-update: Generated HTML files for News, YouTube, and other content" || (
     echo ❌ Failed to commit changes
     pause
     exit /b 1
 )
+
+:: Push changes to GitHub
 git push origin main || (
     echo ❌ Failed to push updates to GitHub
     pause
