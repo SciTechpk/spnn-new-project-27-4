@@ -3,7 +3,7 @@
 :: This batch file automates the generation and deployment of all SPNN pages (News, YouTube, etc.).
 
 :: Step 1: Set working directory
-cd /d D:\SPNN-Backup\spnn-news-auto\spnn-news-auto || (
+cd /d D:\SPNN-New-Repo-27-4-2025\spnn-new-project-27-4 || (
     echo ❌ Failed to set working directory. Exiting...
     pause
     exit /b 1
