@@ -53,8 +53,8 @@ py generate_youtube_iframes.py || (
 :: Step 4: Push updated HTML files to GitHub
 echo 🔧 Committing and pushing updates to GitHub...
 
-:: Add all .html files, including those in subdirectories
-git add *.html **/*.html || (
+:: Add all .html files in the root directory
+git add *.html || (
     echo ❌ Failed to stage .html files
     pause
     exit /b 1
