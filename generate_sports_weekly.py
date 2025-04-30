@@ -107,5 +107,5 @@ if __name__ == "__main__":
     html_content = generate_html(video_playlists, news_items)
     
     # Save HTML (GitHub Pages will host this)
-    write_html_file("sports_news_combined.html", html_content)
+    write_html_file("news_sports_weekly.html", html_content)
     print("🎉 HTML generated successfully!")
