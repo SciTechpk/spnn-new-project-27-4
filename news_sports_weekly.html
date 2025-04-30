@@ -1,9 +1,105 @@
 <!DOCTYPE html>
 <html>
-<head><meta charset="UTF-8"><title>SPNN - YouTube Videos</title></head>
+<head>
+    <meta charset="UTF-8">
+    <title>SPNN Sports</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .box {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .box img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        .box h3 {
+            margin: 10px 0 5px;
+            font-size: 1.1em;
+        }
+        .box a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        .box a:hover {
+            text-decoration: underline;
+        }
+        .box p {
+            color: #666;
+            margin: 5px 0 0;
+        }
+    </style>
+</head>
 <body>
-<h2>📺 Weekly Sports Recap</h2>
-<p><em>Updated: 2025-04-30 22:38 UTC</em></p>
-<h3>Cricket Highlights</h3><iframe width="100%" height="315" src="https://www.youtube.com/embed/Bq8TFmOYUyg" frameborder="0" allowfullscreen></iframe><h3>Football Highlights</h3><iframe width="100%" height="315" src="https://www.youtube.com/embed/E0t4fV5CT9c" frameborder="0" allowfullscreen></iframe><h3>Tennis Highlights</h3><iframe width="100%" height="315" src="https://www.youtube.com/embed/6QZRf6UhyOY" frameborder="0" allowfullscreen></iframe>
+    <h2>📺 Weekly Sports Update</h2>
+    <p><em>Last updated: 2025-04-30 22:44 UTC</em></p>
+    
+    <!-- Video Thumbnails -->
+    <div class="grid"><div class="box">
+            <h3>Cricket</h3>
+            <a href="https://www.youtube.com/watch?v=d6R4NwdFqDI" target="_blank">
+                <img src="https://img.youtube.com/vi/d6R4NwdFqDI/mqdefault.jpg" alt="Cricket">
+            </a>
+        </div><div class="box">
+            <h3>Football</h3>
+            <a href="https://www.youtube.com/watch?v=Q1jq4sQYRk8" target="_blank">
+                <img src="https://img.youtube.com/vi/Q1jq4sQYRk8/mqdefault.jpg" alt="Football">
+            </a>
+        </div><div class="box">
+            <h3>Tennis</h3>
+            <a href="https://www.youtube.com/watch?v=wDxX6aEYN0U" target="_blank">
+                <img src="https://img.youtube.com/vi/wDxX6aEYN0U/mqdefault.jpg" alt="Tennis">
+            </a>
+        </div><div class="box">
+            <h3>Soccer</h3>
+            <a href="https://www.youtube.com/watch?v=OUK2jQJ6UCw" target="_blank">
+                <img src="https://img.youtube.com/vi/OUK2jQJ6UCw/mqdefault.jpg" alt="Soccer">
+            </a>
+        </div><div class="box">
+            <h3>Wrestling</h3>
+            <a href="https://www.youtube.com/watch?v=W9iQfgiY9xM" target="_blank">
+                <img src="https://img.youtube.com/vi/W9iQfgiY9xM/mqdefault.jpg" alt="Wrestling">
+            </a>
+        </div><div class="box">
+            <h3>Boxing</h3>
+            <a href="https://www.youtube.com/watch?v=JjZ8V9qqm9k" target="_blank">
+                <img src="https://img.youtube.com/vi/JjZ8V9qqm9k/mqdefault.jpg" alt="Boxing">
+            </a>
+        </div></div>
+    
+    <!-- News Links -->
+    <div class="grid"><div class="box">
+            <h3><a href="https://www.espn.com/nba/story/_/id/44921212/the-houston-rockets-waiting-their-next-superstar" target="_blank">The Rockets will enter the offseason in search of a star</a></h3>
+            <p>Only one young player is untouchable as the Rockets enter an offseason with lucrative draft capital and a promising future....</p>
+        </div><div class="box">
+            <h3><a href="https://www.espn.com/college-football/story/_/id/44937587/bill-belichick-says-girlfriend-trying-control-tv-interview" target="_blank">Belichick defends girlfriend from 'false narrative'</a></h3>
+            <p>North Carolina coach Bill Belichick issued a statement defending girlfriend Jordon Hudson from the "false narrative" that she was trying to control hi...</p>
+        </div><div class="box">
+            <h3><a href="https://www.bbc.com/sport/snooker/articles/cly15zy22deo" target="_blank">O'Sullivan moves past Si to reach Crucible last four</a></h3>
+            <p>Ronnie O'Sullivan books his place in the World Championship semi-finals with a 13-9 win over Si Jiahui as he maintains his bid for record eighth title...</p>
+        </div><div class="box">
+            <h3><a href="https://www.bbc.com/sport/football/videos/c8rgn1v7ynmo" target="_blank">Barcelona fight back twice to draw with Inter in six-goal thriller</a></h3>
+            <p>Barcelona come back twice against Inter Milan in a thrilling 3-3 draw in the first leg of their Champions League semi-final tie....</p>
+        </div><div class="box">
+            <h3><a href="https://www.theguardian.com/football/2025/apr/30/chelsea-win-wsl-title-after-lucy-bronze-goal-sees-off-manchester-united" target="_blank">Chelsea win WSL title after Lucy Bronze goal sees off Manchester United</a></h3>
+            <p><p>Chelsea clinched a sixth consecutive Women’s Super League title with two games to spare and continued their relentless dominance of the major silve...</p>
+        </div><div class="box">
+            <h3><a href="https://www.theguardian.com/football/2025/apr/30/barcelona-inter-champions-league-semi-final-first-leg-match-report" target="_blank">Lamine Yamal dazzles as Barcelona and Inter trade stunning goals in 3-3 thriller</a></h3>
+            <p><p>Lamine Yamal had said that he left fear behind in the park in Mataró when he was little and there was no sign of it here as Barcelona and Inter pro...</p>
+        </div></div>
 </body>
 </html>
