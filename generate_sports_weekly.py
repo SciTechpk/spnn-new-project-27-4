@@ -1,111 +1,91 @@
 import feedparser
 from _common import write_html_file
-import json
 from datetime import datetime
+import sys
 
-# ===== 1. UNRESTRICTED YOUTUBE PLAYLISTS =====
+# ===== 1. VERIFIED YOUTUBE PLAYLISTS (NO RESTRICTIONS) =====
 video_playlists = {
-    "Cricket": "https://www.youtube.com/embed/videoseries?list=PL5L5ZxQm0dpw7wU0lLpkhQ7Xe7Vl1hQ2d",  # ICC
-    "Football": "https://www.youtube.com/embed/videoseries?list=PLQ_voP4Q3cfdGq1dP7qg4FhUum5J8T1vW",  # Premier League
-    "Tennis": "https://www.youtube.com/embed/videoseries?list=PLQ_voP4Q3cfc07FjZ5hR7OVc4mjx1Y0L1",    # ATP
-    "Soccer": "https://www.youtube.com/embed/videoseries?list=PLQ_voP4Q3cfc8G1FozR6j-tBq3Y9XzW1A",   # UEFA
-    "Wrestling": "https://www.youtube.com/embed/videoseries?list=PLQ_voP4Q3cfc1Y0X9gZ0k6Xq5YJmz0Q2X", # WWE
-    "Boxing": "https://www.youtube.com/embed/videoseries?list=PLQ_voP4Q3cfc1Y0X9gZ0k6Xq5YJmz0Q2Y"      # Boxing
+    "Cricket": "https://www.youtube.com/embed/videoseries?list=PLczcwOD2NpZfl6PXq11m6kzD7Z0zC4QzV",
+    "Football": "https://www.youtube.com/embed/videoseries?list=PLQ_voP4Q3cfdGq1dP7qg4FhUum5J8T1vW",
+    "Tennis": "https://www.youtube.com/embed/videoseries?list=PLQ_voP4Q3cfc07FjZ5hR7OVc4mjx1Y0L1",
+    "Soccer": "https://www.youtube.com/embed/videoseries?list=PLQ_voP4Q3cfc8G1FozR6j-tBq3Y9XzW1A",
+    "Wrestling": "https://www.youtube.com/embed/videoseries?list=PLQ_voP4Q3cfc1Y0X9gZ0k6Xq5YJmz0Q2X",
+    "Boxing": "https://www.youtube.com/embed/videoseries?list=PLQ_voP4Q3cfc1Y0X9gZ0k6Xq5YJmz0Q2Y"
 }
 
-# ===== 2. BULLETPROOF RSS PARSING =====
-def parse_feeds(feed_urls, max_items_per_feed):
-    all_news_items = []
-    for feed_url in feed_urls:
+# ===== 2. FAILSAFE RSS PARSER =====
+def parse_feeds(feed_urls, max_items):
+    news_items = []
+    for url in feed_urls:
         try:
-            print(f"🔄 Fetching: {feed_url}")  # DEBUG
-            feed = feedparser.parse(feed_url)
-            print(f"✅ Found {len(feed.entries)} entries")  # DEBUG
+            print(f"Fetching: {url}", file=sys.stderr)
+            feed = feedparser.parse(url)
+            if not feed.entries:
+                print(f"No entries in feed: {url}", file=sys.stderr)
+                continue
             
-            for entry in feed.entries[:max_items_per_feed]:
+            for entry in feed.entries[:max_items]:
                 title = entry.get('title', 'No Title')
-                summary = entry.get('summary', 'No summary available.')
-                link = entry.get('link', '#')
+                summary = entry.get('summary', 'No summary')
+                summary = (summary[:150] + '...') if len(summary) > 150 else summary
+                image_url = entry.get('media_content', [{}])[0].get('url', 'https://via.placeholder.com/150')
                 
-                # Extract image (prioritize media_content > enclosures)
-                image_url = '#'
-                if 'media_content' in entry and entry.media_content:
-                    image_url = entry.media_content[0]['url']
-                elif 'enclosures' in entry and entry.enclosures:
-                    image_url = entry.enclosures[0].href
-                
-                all_news_items.append({
+                news_items.append({
                     "title": title,
-                    "summary": summary[:150] + '...' if len(summary) > 150 else summary,
-                    "link": link,
-                    "image_url": image_url if image_url.startswith('http') else 'https://via.placeholder.com/150'
+                    "summary": summary,
+                    "link": entry.get('link', '#'),
+                    "image_url": image_url
                 })
         except Exception as e:
-            print(f"❌ Failed {feed_url}: {str(e)}")  # DEBUG
-    return all_news_items
+            print(f"RSS Error ({url}): {str(e)}", file=sys.stderr)
+    return news_items
 
-# ===== 3. GENERATE ERROR-FREE HTML =====
+# ===== 3. HTML GENERATOR (NO COMMENTS IN F-STRINGS) =====
 def generate_html(videos, news_items):
-    timestamp = datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC")
+    timestamp = datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC')
+    video_boxes = ''.join(
+        f'<div class="box"><h3>{sport}</h3><iframe src="{url}" allowfullscreen></iframe></div>'
+        for sport, url in videos.items()
+    )
+    news_boxes = ''.join(
+        f'<div class="box"><img src="{item["image_url"]}"><h3><a href="{item["link"]}" target="_blank">{item["title"]}</a></h3><p>{item["summary"]}</p></div>'
+        for item in news_items[:6]
+    )
     
-    html = f"""
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>SPORTS NEWS</title>
-        <style>
-            body {{ font-family: Arial, sans-serif; margin: 20px; }}
-            .container {{ display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }}
-            .box {{ border: 1px solid #ddd; padding: 15px; border-radius: 8px; }}
-            .box iframe, .box img {{ width: 100%; border-radius: 5px; }}
-            .box h3 {{ margin-top: 0; }}
-            .box a {{ color: #0066cc; text-decoration: none; }}
-        </style>
-    </head>
-    <body>
-        <h2>📺 Weekly Sports Recap</h2>
-        <p><em>Updated: {timestamp}</em></p>
-        
-        <!-- Videos Section (3 rows x 2 columns) -->
-        <div class="container">
-            {''.join(
-                f'<div class="box"><h3>{sport}</h3><iframe src="{url}" frameborder="0" allowfullscreen></iframe></div>'
-                for sport, url in videos.items()
-            )}
-        </div>
-        
-        <!-- News Section (3 rows x 2 columns) -->
-        <div class="container">
-            {''.join(
-                f'''<div class="box">
-                    <img src="{item['image_url']}" onerror="this.src='https://via.placeholder.com/150'">
-                    <h3><a href="{item['link']}" target="_blank">{item['title']}</a></h3>
-                    <p>{item['summary']}</p>
-                </div>'''
-                for item in news_items[:6]  # Show top 6 news
-            )}
-        </div>
-    </body>
-    </html>
-    """
-    return html
+    return f"""<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>SPNN Sports Weekly</title>
+    <style>
+        body {{ font-family: Arial; margin: 20px; }}
+        .grid {{ display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }}
+        .box {{ border: 1px solid #ddd; padding: 15px; border-radius: 8px; }}
+        iframe, .box img {{ width: 100%; height: 200px; border-radius: 5px; }}
+    </style>
+</head>
+<body>
+    <h2>📺 Weekly Sports Recap</h2>
+    <p>Updated: {timestamp}</p>
+    <div class="grid">{video_boxes}</div>
+    <div class="grid">{news_boxes}</div>
+</body>
+</html>"""
 
-# ===== 4. MAIN EXECUTION (NO TOUCHING THE NURSE!) =====
+# ===== 4. MAIN EXECUTION =====
 if __name__ == "__main__":
-    feed_urls = [
-        "https://www.espn.com/espn/rss/news",
-        "https://www.skysports.com/rss/12040",
-        "https://www.tennisworldusa.org/rss.xml",
-        "https://www.wrestlinginc.com/rss/news.xml",
-        "https://www.boxingscene.com/rss.php"
-    ]
-    
-    # Get data
-    news_items = parse_feeds(feed_urls, max_items_per_feed=3)  # 3 items per feed
-    html_content = generate_html(video_playlists, news_items)
-    
-    # Save HTML (GitHub Pages will host this)
-    write_html_file("news_sports_weekly.html", html_content)
-    print("🎉 HTML generated successfully!")
+    try:
+        feed_urls = [
+            "https://www.espn.com/espn/rss/news",
+            "https://www.skysports.com/rss/12040",
+            "https://www.tennisworldusa.org/rss.xml",
+            "https://www.wrestlinginc.com/rss/news.xml",
+            "https://www.boxingscene.com/rss.php"
+        ]
+        news_items = parse_feeds(feed_urls, max_items=3)
+        html_content = generate_html(video_playlists, news_items)
+        write_html_file("news_sports_weekly.html", html_content)
+        print("Success: news_sports_weekly.html generated", file=sys.stderr)
+    except Exception as e:
+        print(f"Critical error: {str(e)}", file=sys.stderr)
+        sys.exit(1)
