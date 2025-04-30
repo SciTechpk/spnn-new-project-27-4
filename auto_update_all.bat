@@ -26,6 +26,11 @@ py generate_7day_html.py || (
     pause
     exit /b 1
 )
+py generate_news_hourly_updated.py || (
+    echo ❌ Error running generate_7day_html.py
+    pause
+    exit /b 1
+)
 py generate_psl_live.py || (
     echo ❌ Error running generate_psl_live.py
     pause
