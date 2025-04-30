@@ -1,9 +1,105 @@
 <!DOCTYPE html>
 <html>
-<head><meta charset="UTF-8"><title>SPNN - YouTube Videos</title></head>
+<head>
+    <meta charset="UTF-8">
+    <title>SPNN Sports</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .box {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .box img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        .box h3 {
+            margin: 10px 0 5px;
+            font-size: 1.1em;
+        }
+        .box a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        .box a:hover {
+            text-decoration: underline;
+        }
+        .box p {
+            color: #666;
+            margin: 5px 0 0;
+        }
+    </style>
+</head>
 <body>
-<h2>📺 Weekly Sports Recap</h2>
-<p><em>Updated: 2025-04-30 08:09 UTC</em></p>
-<h3>Cricket Highlights</h3><iframe width="100%" height="315" src="https://www.youtube.com/embed/Bq8TFmOYUyg" frameborder="0" allowfullscreen></iframe><h3>Football Highlights</h3><iframe width="100%" height="315" src="https://www.youtube.com/embed/E0t4fV5CT9c" frameborder="0" allowfullscreen></iframe><h3>Tennis Highlights</h3><iframe width="100%" height="315" src="https://www.youtube.com/embed/6QZRf6UhyOY" frameborder="0" allowfullscreen></iframe>
+    <h2>📺 Weekly Sports Update</h2>
+    <p><em>Last updated: 2025-04-30 08:12 UTC</em></p>
+    
+    <!-- Video Thumbnails -->
+    <div class="grid"><div class="box">
+            <h3>Cricket</h3>
+            <a href="https://www.youtube.com/watch?v=d6R4NwdFqDI" target="_blank">
+                <img src="https://img.youtube.com/vi/d6R4NwdFqDI/mqdefault.jpg" alt="Cricket">
+            </a>
+        </div><div class="box">
+            <h3>Football</h3>
+            <a href="https://www.youtube.com/watch?v=Q1jq4sQYRk8" target="_blank">
+                <img src="https://img.youtube.com/vi/Q1jq4sQYRk8/mqdefault.jpg" alt="Football">
+            </a>
+        </div><div class="box">
+            <h3>Tennis</h3>
+            <a href="https://www.youtube.com/watch?v=wDxX6aEYN0U" target="_blank">
+                <img src="https://img.youtube.com/vi/wDxX6aEYN0U/mqdefault.jpg" alt="Tennis">
+            </a>
+        </div><div class="box">
+            <h3>Soccer</h3>
+            <a href="https://www.youtube.com/watch?v=OUK2jQJ6UCw" target="_blank">
+                <img src="https://img.youtube.com/vi/OUK2jQJ6UCw/mqdefault.jpg" alt="Soccer">
+            </a>
+        </div><div class="box">
+            <h3>Wrestling</h3>
+            <a href="https://www.youtube.com/watch?v=W9iQfgiY9xM" target="_blank">
+                <img src="https://img.youtube.com/vi/W9iQfgiY9xM/mqdefault.jpg" alt="Wrestling">
+            </a>
+        </div><div class="box">
+            <h3>Boxing</h3>
+            <a href="https://www.youtube.com/watch?v=JjZ8V9qqm9k" target="_blank">
+                <img src="https://img.youtube.com/vi/JjZ8V9qqm9k/mqdefault.jpg" alt="Boxing">
+            </a>
+        </div></div>
+    
+    <!-- News Links -->
+    <div class="grid"><div class="box">
+            <h3><a href="https://www.espn.com/nba/story/_/id/44703241/2025-nba-playoffs-eastern-conference-round-one-takeaways" target="_blank">Eastern Conference playoffs: Bucks crumble in epic collapse, Pacers advance</a></h3>
+            <p>Here's what has stood out from the latest playoff games of the Eastern Conference's first round....</p>
+        </div><div class="box">
+            <h3><a href="https://www.espn.com/nba/story/_/id/44927806/bucks-giannis-antetokounmpo-explains-postgame-confrontation-pacers-star-tyrese-haliburton-father-john" target="_blank">Giannis: Haliburton's dad 'disrespectful' with antics</a></h3>
+            <p>Bucks forward Giannis Antetokounmpo got into a heated confrontation with the father of Pacers guard Tyrese Haliburton following Game 5, spurred by wha...</p>
+        </div><div class="box">
+            <h3><a href="https://www.bbc.com/sport/football/articles/c98gvyj939no" target="_blank">PSG pass masters make Rice and Arsenal's fears come true</a></h3>
+            <p>PSG's pass masters make Declan Rice's fears come true as Arsenal struggle to keep Champions League hopes alive, says chief football writer Phil McNult...</p>
+        </div><div class="box">
+            <h3><a href="https://www.bbc.com/sport/snooker/articles/ce3v7dq9wvvo" target="_blank">O'Sullivan in charge while Williams recovers against Higgins</a></h3>
+            <p>Ronnie O'Sullivan opens up a commanding 6-2 lead over Si Jiahui in the first session of their World Championship quarter-final....</p>
+        </div><div class="box">
+            <h3><a href="https://www.theguardian.com/football/2025/apr/30/arsenal-frailties-on-show-as-luis-enriques-psg-showcase-big-energy-project" target="_blank">Mikel Arteta’s Big Energy show splutters against PSG to reveal Arsenal’s frailties | Barney Ronay</a></h3>
+            <p><p>Absences were keenly felt by hosts whose aggressive approach was disrupted by visiting side’s physical pressure</p><p>Reasons to be cheerful. Hmm. ...</p>
+        </div><div class="box">
+            <h3><a href="https://www.theguardian.com/football/2025/apr/30/raphinha-barcelona-champions-league-ballon-dor-hansi-flick" target="_blank">Raphinha goes from missing man to Barcelona’s Ballon d’Or contender</a></h3>
+            <p><p>The former Leeds forward was on the periphery but is now key to Hansi Flick’s team thanks to his hunger for goals</p><p>To score, first you have to...</p>
+        </div></div>
 </body>
 </html>
