@@ -1,9 +1,89 @@
 <!DOCTYPE html>
 <html>
-<head><meta charset="UTF-8"><title>SPNN - YouTube Videos</title></head>
+<head>
+    <meta charset="UTF-8">
+    <title>SPNN Sports Weekly</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .box {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .box h3 {
+            margin-top: 0;
+            color: #333;
+            font-size: 1.2em;
+        }
+        .box iframe, .box img {
+            width: 100%;
+            height: 200px;
+            border-radius: 5px;
+            object-fit: cover;
+            border: none;
+        }
+        .box p {
+            color: #666;
+            line-height: 1.5;
+        }
+        .box a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        .box a:hover {
+            text-decoration: underline;
+        }
+        h2 {
+            color: #d22;
+            border-bottom: 2px solid #d22;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
 <body>
-<h2>📺 Weekly Sports Recap</h2>
-<p><em>Updated: 2025-04-30 07:38 UTC</em></p>
-<h3>Cricket Highlights</h3><iframe width="100%" height="315" src="https://www.youtube.com/embed/Bq8TFmOYUyg" frameborder="0" allowfullscreen></iframe><h3>Football Highlights</h3><iframe width="100%" height="315" src="https://www.youtube.com/embed/E0t4fV5CT9c" frameborder="0" allowfullscreen></iframe><h3>Tennis Highlights</h3><iframe width="100%" height="315" src="https://www.youtube.com/embed/6QZRf6UhyOY" frameborder="0" allowfullscreen></iframe>
+    <h2>📺 Weekly Sports Recap</h2>
+    <p><em>Updated: 2025-04-30 07:50 UTC</em></p>
+    
+    <!-- Videos Section -->
+    <div class="grid"><div class="box"><h3>Cricket</h3><iframe src="https://www.youtube.com/embed/videoseries?list=PL5L5ZxQm0dpw7wU0lLpkhQ7Xe7Vl1hQ2d" allowfullscreen></iframe></div><div class="box"><h3>Football</h3><iframe src="https://www.youtube.com/embed/videoseries?list=PLQ_voP4Q3cfdGq1dP7qg4FhUum5J8T1vW" allowfullscreen></iframe></div><div class="box"><h3>Tennis</h3><iframe src="https://www.youtube.com/embed/videoseries?list=PLQ_voP4Q3cfc07FjZ5hR7OVc4mjx1Y0L1" allowfullscreen></iframe></div><div class="box"><h3>Soccer</h3><iframe src="https://www.youtube.com/embed/videoseries?list=PLQ_voP4Q3cfc8G1FozR6j-tBq3Y9XzW1A" allowfullscreen></iframe></div><div class="box"><h3>Wrestling</h3><iframe src="https://www.youtube.com/embed/videoseries?list=PLQ_voP4Q3cfc1Y0X9gZ0k6Xq5YJmz0Q2X" allowfullscreen></iframe></div><div class="box"><h3>Boxing</h3><iframe src="https://www.youtube.com/embed/videoseries?list=PLQ_voP4Q3cfc1Y0X9gZ0k6Xq5YJmz0Q2Y" allowfullscreen></iframe></div></div>
+    
+    <!-- News Section -->
+    <div class="grid"><div class="box">
+                <img src="https://via.placeholder.com/300x200?text=SPNN" onerror="this.src='https://via.placeholder.com/300x200?text=SPNN'">
+                <h3><a href="https://www.espn.com/nba/story/_/id/44703241/2025-nba-playoffs-eastern-conference-round-one-takeaways" target="_blank">Eastern Conference playoffs: Bucks crumble in epic collapse, Pacers advance</a></h3>
+                <p>Here's what has stood out from the latest playoff games of the Eastern Conference's first round.</p>
+            </div><div class="box">
+                <img src="https://via.placeholder.com/300x200?text=SPNN" onerror="this.src='https://via.placeholder.com/300x200?text=SPNN'">
+                <h3><a href="https://www.espn.com/nba/story/_/id/44927806/bucks-giannis-antetokounmpo-explains-postgame-confrontation-pacers-star-tyrese-haliburton-father-john" target="_blank">Giannis: Haliburton's dad 'disrespectful' with antics</a></h3>
+                <p>Bucks forward Giannis Antetokounmpo got into a heated confrontation with the father of Pacers guard Tyrese Haliburton following Game 5, spurred by wha...</p>
+            </div><div class="box">
+                <img src="https://e0.365dm.com/25/04/1920x1080/skysports-arsenal-declan-rice_6901152.jpg?20250429220738" onerror="this.src='https://via.placeholder.com/300x200?text=SPNN'">
+                <h3><a href="https://www.skysports.com/football/news/12040/13358427/arsenal-fail-to-rise-to-the-occasion-against-psg-in-champions-league-semi-final-first-leg-defeat" target="_blank">Arsenal fail to rise to the occasion against PSG on deflating night</a></h3>
+                <p>Arsenal's stage was set to deliver a famous night at the Emirates. The reality was far from it in the end, as Mikel Arteta's side came up short agains...</p>
+            </div><div class="box">
+                <img src="https://e1.365dm.com/25/04/1920x1080/skysports-lewis-hamilton-ferrari_6900610.jpg?20250429122126" onerror="this.src='https://via.placeholder.com/300x200?text=SPNN'">
+                <h3><a href="https://www.skysports.com/f1/news/12040/13357926/lewis-hamilton-and-ferrari-seek-miami-gp-breakthroughs-after-challenging-start-to-2025-f1-season" target="_blank">'The potential is there' - but will Hamilton, Ferrari make breakthrough?</a></h3>
+                <p>Miami hosts the second Sprint event of the Formula 1 season this weekend, six weeks after the first of the year in China had seemingly provided early ...</p>
+            </div><div class="box">
+                <img src="https://via.placeholder.com/300x200?text=SPNN" onerror="this.src='https://via.placeholder.com/300x200?text=SPNN'">
+                <h3><a href="https://www.bbc.com/sport/football/articles/c98gvyj939no" target="_blank">PSG pass masters make Rice and Arsenal's fears come true</a></h3>
+                <p>PSG's pass masters make Declan Rice's fears come true as Arsenal struggle to keep Champions League hopes alive, says chief football writer Phil McNult...</p>
+            </div><div class="box">
+                <img src="https://via.placeholder.com/300x200?text=SPNN" onerror="this.src='https://via.placeholder.com/300x200?text=SPNN'">
+                <h3><a href="https://www.bbc.com/sport/snooker/articles/ce3v7dq9wvvo" target="_blank">O'Sullivan in charge while Williams recovers against Higgins</a></h3>
+                <p>Ronnie O'Sullivan opens up a commanding 6-2 lead over Si Jiahui in the first session of their World Championship quarter-final.</p>
+            </div></div>
 </body>
 </html>
