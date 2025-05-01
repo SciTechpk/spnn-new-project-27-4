@@ -2,102 +2,98 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>SPNN Sports</title>
+    <title>SPNN Sports Weekly</title>
+    <meta name="description" content="Latest sports highlights and news">
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
             background: #f5f5f5;
         }
+        h2 {
+            color: #d22;
+            border-bottom: 2px solid #d22;
+            padding-bottom: 10px;
+        }
         .grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
+            margin-bottom: 30px;
         }
         .box {
             background: white;
-            border: 1px solid #ddd;
             border-radius: 8px;
             padding: 15px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        .box img {
+        .box iframe, .box img {
             width: 100%;
-            height: 180px;
-            object-fit: cover;
+            height: 200px;
             border-radius: 5px;
+            border: none;
         }
         .box h3 {
             margin: 10px 0 5px;
-            font-size: 1.1em;
         }
         .box a {
             color: #0066cc;
             text-decoration: none;
         }
-        .box a:hover {
-            text-decoration: underline;
-        }
-        .box p {
+        .timestamp {
             color: #666;
-            margin: 5px 0 0;
+            font-style: italic;
         }
     </style>
 </head>
 <body>
-    <h2>📺 Weekly Sports Update</h2>
-    <p><em>Last updated: 2025-05-01 06:08 UTC</em></p>
+    <h2>📺 Weekly Sports Recap</h2>
+    <p class="timestamp">Last updated: 2025-05-01 06:39 UTC</p>
     
-    <!-- Video Thumbnails -->
+    <!-- Videos -->
     <div class="grid"><div class="box">
             <h3>Cricket</h3>
-            <a href="https://www.youtube.com/watch?v=d6R4NwdFqDI" target="_blank">
-                <img src="https://img.youtube.com/vi/d6R4NwdFqDI/mqdefault.jpg" alt="Cricket">
-            </a>
-        </div><div class="box">
-            <h3>Football</h3>
-            <a href="https://www.youtube.com/watch?v=Q1jq4sQYRk8" target="_blank">
-                <img src="https://img.youtube.com/vi/Q1jq4sQYRk8/mqdefault.jpg" alt="Football">
-            </a>
-        </div><div class="box">
-            <h3>Tennis</h3>
-            <a href="https://www.youtube.com/watch?v=wDxX6aEYN0U" target="_blank">
-                <img src="https://img.youtube.com/vi/wDxX6aEYN0U/mqdefault.jpg" alt="Tennis">
-            </a>
-        </div><div class="box">
-            <h3>Soccer</h3>
-            <a href="https://www.youtube.com/watch?v=OUK2jQJ6UCw" target="_blank">
-                <img src="https://img.youtube.com/vi/OUK2jQJ6UCw/mqdefault.jpg" alt="Soccer">
-            </a>
-        </div><div class="box">
-            <h3>Wrestling</h3>
-            <a href="https://www.youtube.com/watch?v=W9iQfgiY9xM" target="_blank">
-                <img src="https://img.youtube.com/vi/W9iQfgiY9xM/mqdefault.jpg" alt="Wrestling">
-            </a>
+            <iframe src="https://www.youtube.com/embed/videoseries?list=PL5L5ZxQm0dpw7wU0lLpkhQ7Xe7Vl1hQ2d" frameborder="0" allowfullscreen></iframe>
         </div><div class="box">
             <h3>Boxing</h3>
-            <a href="https://www.youtube.com/watch?v=JjZ8V9qqm9k" target="_blank">
-                <img src="https://img.youtube.com/vi/JjZ8V9qqm9k/mqdefault.jpg" alt="Boxing">
-            </a>
+            <iframe src="https://www.youtube.com/embed/videoseries?list=PL-KAIrL6czM_bnmP8z41QdEVCXcj0UjEA" frameborder="0" allowfullscreen></iframe>
+        </div><div class="box">
+            <h3>Tennis</h3>
+            <iframe src="https://www.youtube.com/embed/videoseries?list=PLQ_voP4Q3cfc07FjZ5hR7OVc4mjx1Y0L1" frameborder="0" allowfullscreen></iframe>
+        </div><div class="box">
+            <h3>Football</h3>
+            <iframe src="https://www.youtube.com/embed/videoseries?list=PLQ_voP4Q3cffdA4JuRiRtGT-lQxfvO4YY" frameborder="0" allowfullscreen></iframe>
+        </div><div class="box">
+            <h3>Soccer</h3>
+            <iframe src="https://www.youtube.com/embed/videoseries?list=PLQ_voP4Q3cfc8G1FozR6j-tBq3Y9XzW1A" frameborder="0" allowfullscreen></iframe>
+        </div><div class="box">
+            <h3>Wrestling</h3>
+            <iframe src="https://www.youtube.com/embed/videoseries?list=PLQ_voP4Q3cfc1Y0X9gZ0k6Xq5YJmz0Q2X" frameborder="0" allowfullscreen></iframe>
         </div></div>
     
-    <!-- News Links -->
+    <!-- News -->
     <div class="grid"><div class="box">
+            <img src="https://via.placeholder.com/300x200?text=SPNN" onerror="this.src='https://via.placeholder.com/300x200?text=SPNN'">
             <h3><a href="https://www.espn.com/nba/story/_/id/44676638/2025-nba-playoffs-western-conference-round-one-takeaways" target="_blank">Western Conference playoffs: Timberwolves oust LeBron, Lakers</a></h3>
             <p>Here's what has stood out from the latest playoff games of the Western Conference's first round....</p>
         </div><div class="box">
+            <img src="https://via.placeholder.com/300x200?text=SPNN" onerror="this.src='https://via.placeholder.com/300x200?text=SPNN'">
             <h3><a href="https://www.espn.com/nba/story/_/id/44944858/wolves-win-third-straight-eliminate-lakers-first-round" target="_blank">Wolves win third straight to knock out Lakers</a></h3>
             <p>Minnesota advanced in the NBA playoffs with a 103-96 win over Los Angeles on Wednesday night that eliminated LeBron James and Luka Doncic from their f...</p>
         </div><div class="box">
+            <img src="https://via.placeholder.com/300x200?text=SPNN" onerror="this.src='https://via.placeholder.com/300x200?text=SPNN'">
             <h3><a href="https://www.bbc.com/sport/football/articles/cp91eje3jm2o" target="_blank">How Chelsea extended dynasty with latest WSL title</a></h3>
             <p>How Chelsea and Sonia Bompastor expanded their dynasty and secured a sixth successive Women's Super League title....</p>
         </div><div class="box">
+            <img src="https://via.placeholder.com/300x200?text=SPNN" onerror="this.src='https://via.placeholder.com/300x200?text=SPNN'">
             <h3><a href="https://www.bbc.com/sport/football/articles/c1eg12y2qpdo" target="_blank">'A talent that comes along every 50 years' - 'genius' Yamal steals show</a></h3>
             <p>Lamine Yamal says he would not compare himself to Lionel Messi - and then puts in a performance a 17-year-old Messi could only have dreamed of....</p>
         </div><div class="box">
+            <img src="https://i.guim.co.uk/img/media/14740f485b16b693716d1274a1ce9149fa2e5bd2/285_298_4640_2784/master/4640.jpg?width=140&quality=85&auto=format&fit=max&s=51ba40e7468f08189a6b93680a2fe46c" onerror="this.src='https://via.placeholder.com/300x200?text=SPNN'">
             <h3><a href="https://www.theguardian.com/football/2025/apr/30/chelsea-win-wsl-title-after-lucy-bronze-goal-sees-off-manchester-united" target="_blank">Chelsea win WSL title after Lucy Bronze goal sees off Manchester United</a></h3>
             <p><p>Chelsea clinched a sixth consecutive Women’s Super League title with two games to spare and continued their relentless dominance of the major silve...</p>
         </div><div class="box">
+            <img src="https://i.guim.co.uk/img/media/03c0cbc710fae8bd6d2bdcc08b0d9949b2b467d5/1674_227_3234_1941/master/3234.jpg?width=140&quality=85&auto=format&fit=max&s=4552d0306d8ebdc01b40808161d54dd9" onerror="this.src='https://via.placeholder.com/300x200?text=SPNN'">
             <h3><a href="https://www.theguardian.com/football/2025/apr/30/barcelona-inter-champions-league-semi-final-first-leg-match-report" target="_blank">Lamine Yamal dazzles as Barcelona and Inter trade stunning goals in 3-3 thriller</a></h3>
             <p><p>Lamine Yamal had said that he left fear behind in the park in Mataró when he was little and there was no sign of it here as Barcelona and Inter pro...</p>
         </div></div>
