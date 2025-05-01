@@ -1,4 +1,5 @@
 import feedparser
+from video_rotation_engine import get_rotated_playlists
 from _common import write_html_file
 from datetime import datetime, timezone
 import sys
@@ -64,7 +65,7 @@ def generate_html():
             <h3>{sport}</h3>
             <iframe src="{url}" frameborder="0" allowfullscreen></iframe>
         </div>'''
-        for sport, url in get_rotated_sports().items()
+        for sport, url in get_rotated_playlists().items().items()
     )
     
     # News Section
