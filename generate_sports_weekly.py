@@ -64,7 +64,7 @@ def generate_html():
             <h3>{sport}</h3>
             <iframe src="{url}" frameborder="0" allowfullscreen></iframe>
         </div>'''
-        for sport, url in video_playlists.items()
+        for sport, url in get_rotated_sports().items()
     )
     
     # News Section
