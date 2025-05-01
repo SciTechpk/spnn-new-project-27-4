@@ -6,6 +6,7 @@ import sys
 import re
 
 # ===== 1. VERIFIED YOUTUBE PLAYLISTS (EMBED-SAFE) =====
+# (Kept as fallback reference, not used directly)
 video_playlists = {
     "Cricket": "https://www.youtube.com/embed/videoseries?list=PLl6h6UvLNv39Tguhu-5xKTz1-egoPwlZ0",
     "Boxing": "https://www.youtube.com/embed/videoseries?list=PL-KAIrL6czM_bnmP8z41QdEVCXcj0UjEA",
@@ -27,8 +28,11 @@ PRIMARY_FEEDS = [
 
 def generate_playlist_thumbnail(playlist_url):
     """Generate playlist thumbnail using first video in playlist"""
-    video_id = playlist_url.split("list=")[1].split("&")[0]
-    return f"https://img.youtube.com/vi/{video_id}/mqdefault.jpg"
+    try:
+        video_id = playlist_url.split("list=")[1].split("&")[0]
+        return f"https://img.youtube.com/vi/{video_id}/mqdefault.jpg"
+    except (IndexError, AttributeError):
+        return "https://via.placeholder.com/300x200?text=SPNN"
 
 def parse_feeds(feed_urls):
     """Extract news with image fallback"""
@@ -37,7 +41,6 @@ def parse_feeds(feed_urls):
         try:
             feed = feedparser.parse(url)
             for entry in feed.entries[:2]:  # Top 2 per feed
-                # Extract image from media_content or description
                 img_src = None
                 if hasattr(entry, 'media_content'):
                     img_src = entry.media_content[0]['url']
@@ -47,41 +50,42 @@ def parse_feeds(feed_urls):
                         img_src = img_match.group(1)
                 
                 news_items.append({
-                    "title": entry.get('title', 'No Title'),
+                    "title": entry.get('title', 'No Title').strip(),
                     "link": entry.get('link', '#'),
                     "summary": (entry.get('description', 'No summary')[:150] + '...'),
                     "image": img_src or "https://via.placeholder.com/300x200?text=SPNN"
                 })
         except Exception as e:
             print(f"⚠️ RSS Error ({url}): {str(e)}", file=sys.stderr)
-    return news_items[:6]  # Return top 6
+    return news_items[:6]
 
 def generate_html():
     timestamp = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')
     
-    # Video Section
+    # Video Section (Fixed rotation implementation)
     video_boxes = ''.join(
         f'''<div class="box">
             <h3>{sport}</h3>
-            <iframe src="{url}" frameborder="0" allowfullscreen></iframe>
+            <iframe src="{url}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>'''
-        for sport, url in get_rotated_playlists().items().items()
+        for sport, url in get_rotated_playlists().items()  # Removed duplicate .items()
     )
     
     # News Section
     news_boxes = ''.join(
         f'''<div class="box">
-            <img src="{item['image']}" onerror="this.src='https://via.placeholder.com/300x200?text=SPNN'">
-            <h3><a href="{item['link']}" target="_blank">{item['title']}</a></h3>
+            <img src="{item['image']}" alt="{item['title']}" loading="lazy" onerror="this.src='https://via.placeholder.com/300x200?text=SPNN'">
+            <h3><a href="{item['link']}" target="_blank" rel="noopener noreferrer">{item['title']}</a></h3>
             <p>{item['summary']}</p>
         </div>'''
         for item in parse_feeds(PRIMARY_FEEDS)
     )
     
     return f"""<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SPNN Sports Weekly</title>
     <meta name="description" content="Latest sports highlights and news">
     <style>
@@ -89,6 +93,7 @@ def generate_html():
             font-family: Arial, sans-serif;
             margin: 20px;
             background: #f5f5f5;
+            line-height: 1.6;
         }}
         h2 {{
             color: #d22;
@@ -97,7 +102,7 @@ def generate_html():
         }}
         .grid {{
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 20px;
             margin-bottom: 30px;
         }}
@@ -106,29 +111,49 @@ def generate_html():
             border-radius: 8px;
             padding: 15px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }}
+        .box:hover {{
+            transform: translateY(-5px);
         }}
         .box iframe, .box img {{
             width: 100%;
             height: 200px;
             border-radius: 5px;
             border: none;
+            object-fit: cover;
         }}
         .box h3 {{
             margin: 10px 0 5px;
+            font-size: 1.1rem;
         }}
         .box a {{
             color: #0066cc;
             text-decoration: none;
         }}
+        .box a:hover {{
+            text-decoration: underline;
+        }}
+        .box p {{
+            color: #555;
+            margin: 5px 0 0;
+        }}
         .timestamp {{
             color: #666;
             font-style: italic;
+            margin-bottom: 20px;
+            display: block;
+        }}
+        @media (max-width: 600px) {{
+            .grid {{
+                grid-template-columns: 1fr;
+            }}
         }}
     </style>
 </head>
 <body>
     <h2>📺 Weekly Sports Recap</h2>
-    <p class="timestamp">Last updated: {timestamp}</p>
+    <span class="timestamp">Last updated: {timestamp}</span>
     
     <!-- Videos -->
     <div class="grid">{video_boxes}</div>

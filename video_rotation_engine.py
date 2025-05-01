@@ -3,7 +3,7 @@ import random
 from datetime import datetime
 
 def get_rotated_playlists():
-    """AUTOMATIC rotation with every run - SAFE and CONSISTENT"""
+    """ROTATES EVERY 30 MINUTES (not weekly)"""
     ALL_SPORTS = {
         "Cricket": "https://www.youtube.com/embed/videoseries?list=PLl6h6UvLNv39Tguhu-5xKTz1-egoPwlZ0",
         "Boxing": "https://www.youtube.com/embed/videoseries?list=PL-KAIrL6czM_bnmP8z41QdEVCXcj0UjEA",
@@ -13,9 +13,10 @@ def get_rotated_playlists():
         "Wrestling": "https://www.youtube.com/embed/videoseries?list=PL51olEIebDW0IoUNpWzeBcS16XryrnpBj"
     }
     
-    # Seed random with weekly timestamp for consistent weekly rotation
-    random.seed(datetime.now().isocalendar()[1])
+    # Seed changes every 30 minutes (not weekly)
+    current_interval = int(datetime.now().timestamp() // (30 * 60))  # 30-minute blocks
+    random.seed(current_interval)  # Resets every 30 mins
     return dict(random.sample(list(ALL_SPORTS.items()), k=3))  # Returns 3 random sports
 
-# TEST: Uncomment to verify
-# print("This run's sports:", get_rotated_playlists().keys())
+# TEST: This will change outputs every 30 mins
+print("Current rotation:", get_rotated_playlists().keys())
