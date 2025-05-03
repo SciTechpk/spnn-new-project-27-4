@@ -6,8 +6,6 @@ import sys
 import re
 from urllib.parse import urlparse
 
-# ===== 1. VERIFIED YOUTUBE PLAYLISTS (EMBED-SAFE) =====
-# (Maintained as reference, actual rotation handled by video_rotation_engine.py)
 video_playlists = {
     "Cricket": "https://www.youtube.com/embed/videoseries?list=PLl6h6UvLNv39Tguhu-5xKTz1-egoPwlZ0",
     "Boxing": "https://www.youtube.com/embed/videoseries?list=PL-KAIrL6czM_bnmP8z41QdEVCXcj0UjEA",
@@ -17,7 +15,6 @@ video_playlists = {
     "Wrestling": "https://www.youtube.com/embed/videoseries?list=PL51olEIebDW0IoUNpWzeBcS16XryrnpBj"
 }
 
-# ===== 2. RELIABLE RSS FEEDS =====
 PRIMARY_FEEDS = [
     "https://www.espn.com/espn/rss/news",
     "https://www.bbc.com/sport/rss.xml",
@@ -28,7 +25,6 @@ PRIMARY_FEEDS = [
 ]
 
 def validate_url(url):
-    """Ensure URLs are properly formatted"""
     try:
         result = urlparse(url)
         return all([result.scheme, result.netloc])
@@ -36,13 +32,11 @@ def validate_url(url):
         return False
 
 def parse_feeds(feed_urls):
-    """Flicker-proof news feed parser with stable image handling"""
     news_items = []
     for url in feed_urls:
         try:
             feed = feedparser.parse(url)
-            for entry in feed.entries[:2]:  # Top 2 per feed
-                # 1. Secure image handling
+            for entry in feed.entries[:2]:
                 img_src = None
                 if hasattr(entry, 'media_content'):
                     img_src = entry.media_content[0]['url'].replace('http://', 'https://')
@@ -51,29 +45,24 @@ def parse_feeds(feed_urls):
                     if img_match:
                         img_src = img_match.group(1).replace('http://', 'https://')
                 
-                # 2. Stable placeholder system
                 placeholder = "https://via.placeholder.com/600x400.png/eeeeee/333333?text=SPNN"
                 if img_src and not validate_url(img_src):
                     img_src = None
                 
-                # 3. Cache-resistant output
                 news_items.append({
                     "title": entry.get('title', 'No Title').strip(),
                     "link": entry.get('link', '#'),
-                    "summary": (re.sub('<[^<]+?>', '', entry.get('description', 'No summary'))[:150] + '...',
-                    "image": f"{img_src or placeholder}?t={datetime.now().timestamp()}"  # Cache buster
+                    "summary": (re.sub('<[^<]+?>', '', entry.get('description', 'No summary'))[:150] + '...'),
+                    "image": f"{img_src or placeholder}?t={datetime.now().timestamp()}"
                 })
         except Exception as e:
             print(f"⚠️ RSS Error ({url}): {str(e)}", file=sys.stderr)
-    return news_items[:6]  # Return exactly 6 items
+    return news_items[:6]
 
 def generate_html():
     timestamp = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')
+    video_boxes = get_rotated_playlists()
     
-    # 1. Video Section (Stable pre-rendered HTML)
-    video_boxes = get_rotated_playlists()  # From video_rotation_engine.py
-    
-    # 2. News Section (Flicker-proof rendering)
     news_items = parse_feeds(PRIMARY_FEEDS)
     news_boxes = ''.join(
         f'''<div class="box news-box" style="min-height:320px">
@@ -165,14 +154,10 @@ def generate_html():
     <h2>📺 Weekly Sports Recap</h2>
     <span class="timestamp">Last updated: {timestamp}</span>
     
-    <!-- Videos -->
     <div class="grid">{video_boxes}</div>
-    
-    <!-- News -->
     <div class="grid">{news_boxes}</div>
     
     <script>
-        // Prevent layout shifts
         document.addEventListener('DOMContentLoaded', () => {{
             const boxes = document.querySelectorAll('.news-box');
             boxes.forEach(box => {{
