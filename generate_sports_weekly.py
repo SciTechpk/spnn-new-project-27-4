@@ -4,9 +4,10 @@ from _common import write_html_file
 from datetime import datetime, timezone
 import sys
 import re
+from urllib.parse import urlparse
 
 # ===== 1. VERIFIED YOUTUBE PLAYLISTS (EMBED-SAFE) =====
-# (Kept as fallback reference, not used directly)
+# (Maintained as reference, actual rotation handled by video_rotation_engine.py)
 video_playlists = {
     "Cricket": "https://www.youtube.com/embed/videoseries?list=PLl6h6UvLNv39Tguhu-5xKTz1-egoPwlZ0",
     "Boxing": "https://www.youtube.com/embed/videoseries?list=PL-KAIrL6czM_bnmP8z41QdEVCXcj0UjEA",
@@ -26,59 +27,64 @@ PRIMARY_FEEDS = [
     "https://www.wrestlinginc.com/feed/"
 ]
 
-def generate_playlist_thumbnail(playlist_url):
-    """Generate playlist thumbnail using first video in playlist"""
+def validate_url(url):
+    """Ensure URLs are properly formatted"""
     try:
-        video_id = playlist_url.split("list=")[1].split("&")[0]
-        return f"https://img.youtube.com/vi/{video_id}/mqdefault.jpg"
-    except (IndexError, AttributeError):
-        return "https://via.placeholder.com/300x200?text=SPNN"
+        result = urlparse(url)
+        return all([result.scheme, result.netloc])
+    except:
+        return False
 
 def parse_feeds(feed_urls):
-    """Extract news with image fallback"""
+    """Flicker-proof news feed parser with stable image handling"""
     news_items = []
     for url in feed_urls:
         try:
             feed = feedparser.parse(url)
             for entry in feed.entries[:2]:  # Top 2 per feed
+                # 1. Secure image handling
                 img_src = None
                 if hasattr(entry, 'media_content'):
-                    img_src = entry.media_content[0]['url']
+                    img_src = entry.media_content[0]['url'].replace('http://', 'https://')
                 elif 'description' in entry:
                     img_match = re.search(r'<img[^>]+src="([^">]+)"', entry.description)
                     if img_match:
-                        img_src = img_match.group(1)
+                        img_src = img_match.group(1).replace('http://', 'https://')
                 
+                # 2. Stable placeholder system
+                placeholder = "https://via.placeholder.com/600x400.png/eeeeee/333333?text=SPNN"
+                if img_src and not validate_url(img_src):
+                    img_src = None
+                
+                # 3. Cache-resistant output
                 news_items.append({
                     "title": entry.get('title', 'No Title').strip(),
                     "link": entry.get('link', '#'),
-                    "summary": (entry.get('description', 'No summary')[:150] + '...'),
-                    "image": img_src or "https://via.placeholder.com/300x200?text=SPNN"
+                    "summary": (re.sub('<[^<]+?>', '', entry.get('description', 'No summary'))[:150] + '...',
+                    "image": f"{img_src or placeholder}?t={datetime.now().timestamp()}"  # Cache buster
                 })
         except Exception as e:
             print(f"⚠️ RSS Error ({url}): {str(e)}", file=sys.stderr)
-    return news_items[:6]
+    return news_items[:6]  # Return exactly 6 items
 
 def generate_html():
     timestamp = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')
     
-    # Video Section (Fixed rotation implementation)
-    video_boxes = ''.join(
-        f'''<div class="box">
-            <h3>{sport}</h3>
-            <iframe src="{url}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>'''
-        for sport, url in get_rotated_playlists().items()  # Removed duplicate .items()
-    )
+    # 1. Video Section (Stable pre-rendered HTML)
+    video_boxes = get_rotated_playlists()  # From video_rotation_engine.py
     
-    # News Section
+    # 2. News Section (Flicker-proof rendering)
+    news_items = parse_feeds(PRIMARY_FEEDS)
     news_boxes = ''.join(
-        f'''<div class="box">
-            <img src="{item['image']}" alt="{item['title']}" loading="lazy" onerror="this.src='https://via.placeholder.com/300x200?text=SPNN'">
-            <h3><a href="{item['link']}" target="_blank" rel="noopener noreferrer">{item['title']}</a></h3>
+        f'''<div class="box news-box" style="min-height:320px">
+            <img src="{item['image']}" 
+                 loading="eager"
+                 style="height:200px;object-fit:cover;background:#f0f0f0"
+                 alt="{item['title']}">
+            <h3><a href="{item['link']}" target="_blank" rel="noopener">{item['title']}</a></h3>
             <p>{item['summary']}</p>
         </div>'''
-        for item in parse_feeds(PRIMARY_FEEDS)
+        for item in news_items
     )
     
     return f"""<!DOCTYPE html>
@@ -114,7 +120,7 @@ def generate_html():
             transition: transform 0.2s;
         }}
         .box:hover {{
-            transform: translateY(-5px);
+            transform: translateY(-3px);
         }}
         .box iframe, .box img {{
             width: 100%;
@@ -124,7 +130,7 @@ def generate_html():
             object-fit: cover;
         }}
         .box h3 {{
-            margin: 10px 0 5px;
+            margin: 12px 0 6px;
             font-size: 1.1rem;
         }}
         .box a {{
@@ -136,7 +142,8 @@ def generate_html():
         }}
         .box p {{
             color: #555;
-            margin: 5px 0 0;
+            margin: 8px 0 0;
+            font-size: 0.9rem;
         }}
         .timestamp {{
             color: #666;
@@ -147,6 +154,9 @@ def generate_html():
         @media (max-width: 600px) {{
             .grid {{
                 grid-template-columns: 1fr;
+            }}
+            .box {{
+                padding: 12px;
             }}
         }}
     </style>
@@ -160,6 +170,16 @@ def generate_html():
     
     <!-- News -->
     <div class="grid">{news_boxes}</div>
+    
+    <script>
+        // Prevent layout shifts
+        document.addEventListener('DOMContentLoaded', () => {{
+            const boxes = document.querySelectorAll('.news-box');
+            boxes.forEach(box => {{
+                box.style.minHeight = box.offsetHeight + 'px';
+            }});
+        }});
+    </script>
 </body>
 </html>"""
 
