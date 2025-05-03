@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 import sys
 import re
 
-# ===== 1. VIDEO PLAYLISTS (UNCHANGED) =====
+# ===== 1. VIDEO PLAYLISTS =====
 video_playlists = {
     "Cricket": "https://www.youtube.com/embed/videoseries?list=PLl6h6UvLNv39Tguhu-5xKTz1-egoPwlZ0",
     "Boxing": "https://www.youtube.com/embed/videoseries?list=PL-KAIrL6czM_bnmP8z41QdEVCXcj0UjEA",
@@ -15,7 +15,7 @@ video_playlists = {
     "Wrestling": "https://www.youtube.com/embed/videoseries?list=PL51olEIebDW0IoUNpWzeBcS16XryrnpBj"
 }
 
-# ===== 2. RSS FEEDS (UNCHANGED) =====
+# ===== 2. RSS FEEDS =====
 PRIMARY_FEEDS = [
     "https://www.espn.com/espn/rss/news",
     "https://www.bbc.com/sport/rss.xml",
@@ -26,7 +26,7 @@ PRIMARY_FEEDS = [
 ]
 
 def parse_feeds(feed_urls):
-    """Simplified parser without images"""
+    """Image-free feed parser"""
     news_items = []
     for url in feed_urls:
         try:
@@ -45,9 +45,15 @@ def generate_html():
     timestamp = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')
     
     # Video Section
-    video_boxes = get_rotated_playlists()
+    video_boxes = ''.join(
+        f'''<div class="box">
+            <h3>{sport}</h3>
+            <iframe src="{url}" frameborder="0" allowfullscreen></iframe>
+        </div>'''
+        for sport, url in video_playlists.items()
+    )
     
-    # News Section (No Images)
+    # News Section (No image references)
     news_boxes = ''.join(
         f'''<div class="box news-box">
             <h3><a href="{item['link']}" target="_blank" rel="noopener">{item['title']}</a></h3>
@@ -88,7 +94,7 @@ def generate_html():
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }}
         .news-box {{
-            min-height: 160px; /* Fixed height for stability */
+            min-height: 120px;
         }}
         .box iframe {{
             width: 100%;
