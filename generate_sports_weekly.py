@@ -1,21 +1,20 @@
 import feedparser
-from video_rotation_engine import get_rotated_playlists
 from _common import write_html_file
 from datetime import datetime, timezone
 import sys
 import re
 
-# ===== 1. VIDEO PLAYLISTS =====
+# ===== 1. VIDEO PLAYISTS =====
 video_playlists = {
     "Cricket": "https://www.youtube.com/embed/videoseries?list=PLl6h6UvLNv39Tguhu-5xKTz1-egoPwlZ0",
     "Boxing": "https://www.youtube.com/embed/videoseries?list=PL-KAIrL6czM_bnmP8z41QdEVCXcj0UjEA",
     "Tennis": "https://www.youtube.com/embed/videoseries?list=PLiDzi8ftbdotLBZnLcM42tHlc0D0FNEvk",
     "Football": "https://www.youtube.com/embed/videoseries?list=PLV3zWUbtkFC3mEBBsTdlQ59hiQEo_WuOT",
-    "Soccer": "https://www.youtube.com/embed/videoseries?list=PLnaYFo37eXKUvS-SkkgHbMiKxFky4J7IX",
+    "Soccer": "https://www.youtube.com/embed/videoseries?list=PLnaYFo37eXKUvS-SkkgHbMiKxFky4J7IX", 
     "Wrestling": "https://www.youtube.com/embed/videoseries?list=PL51olEIebDW0IoUNpWzeBcS16XryrnpBj"
 }
 
-# ===== 2. RSS FEEDS =====
+# ===== 2. RSS FEEDS ===== 
 PRIMARY_FEEDS = [
     "https://www.espn.com/espn/rss/news",
     "https://www.bbc.com/sport/rss.xml",
@@ -53,7 +52,7 @@ def generate_html():
         for sport, url in video_playlists.items()
     )
     
-    # News Section (No image references)
+    # News Section (PURE TEXT - NO IMAGE REFERENCES)
     news_boxes = ''.join(
         f'''<div class="box news-box">
             <h3><a href="{item['link']}" target="_blank" rel="noopener">{item['title']}</a></h3>
@@ -92,9 +91,6 @@ def generate_html():
             border-radius: 8px;
             padding: 15px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }}
-        .news-box {{
-            min-height: 120px;
         }}
         .box iframe {{
             width: 100%;
