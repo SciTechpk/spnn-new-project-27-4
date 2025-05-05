@@ -1,0 +1,4 @@
+[credential]
+    helper = wincred
+[push]
+    default = current
