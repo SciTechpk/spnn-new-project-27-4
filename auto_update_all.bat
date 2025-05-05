@@ -9,7 +9,28 @@ cd /d D:\SPNN-New-Repo-27-4-2025\spnn-new-project-27-4 || (
     exit /b 1
 )
 
-:: Step 1.5: Ensure git is configured
+:: Step 1.5: Ensure git is properly configured
+call :configure_git
+
+:: Step 2: Pull latest changes before making updates
+call :git_pull_with_retry
+
+:: Step 3: Run all Python generation scripts
+call :run_python_scripts
+
+:: Step 4: Push changes to GitHub
+call :git_push_with_retry
+
+:: Final success message
+echo ✅ All updates completed successfully and pushed to GitHub.
+pause
+exit /b 0
+
+::::::::::::::::::::::::::
+:: FUNCTION DEFINITIONS ::
+::::::::::::::::::::::::::
+
+:configure_git
 git config user.name || (
     echo ⚠ Git user.name not configured, setting default...
     git config --global user.name "SPNN Auto-Updater"
@@ -18,86 +39,80 @@ git config user.email || (
     echo ⚠ Git user.email not configured, setting default...
     git config --global user.email "auto-updater@spnn.example.com"
 )
+exit /b 0
 
-:: Step 2: Run Python scripts for News updates
-echo 📰 Running Python scripts for News updates...
-py generate_latest_html.py || (
-    echo ❌ Error running generate_latest_html.py
-    pause
-    exit /b 1
-)
-py generate_24hr_html.py || (
-    echo ❌ Error running generate_24hr_html.py
-    pause
-    exit /b 1
-)
-py generate_7day_html.py || (
-    echo ❌ Error running generate_7day_html.py
-    pause
-    exit /b 1
-)
-py generate_news_hourly_updated.py || (
-    echo ❌ Error running generate_news_hourly_updated.py
-    pause
-    exit /b 1
-)
-py generate_psl_live.py || (
-    echo ❌ Error running generate_psl_live.py
-    pause
-    exit /b 1
-)
-py generate_top5_sports.py || (
-    echo ❌ Error running generate_top5_sports.py
-    pause
-    exit /b 1
-)
-py generate_sports_weekly.py || (
-    echo ❌ Error running generate_sports_weekly.py
-    pause
-    exit /b 1
-)
-
-:: Step 3: Run Python scripts for YouTube updates
-echo 🎥 Running Python scripts for YouTube updates...
-py generate_youtube_iframes.py || (
-    echo ❌ Error running generate_youtube_iframes.py
-    pause
-    exit /b 1
-)
-
-:: Step 4: Push updated HTML files to GitHub
-echo 🔧 Committing and pushing updates to GitHub...
-
-:: Add all .html files in the root directory
-git add *.html || (
-    echo ❌ Failed to stage .html files
-    pause
-    exit /b 1
-)
-
-:: Commit with a more descriptive message
-git commit -m "🔄 Auto-update: Generated HTML files for News, YouTube, and other content [%date% %time%]" || (
-    echo ❌ Failed to commit changes
-    pause
-    exit /b 1
-)
-
-:: Push changes to GitHub with retry logic
+:git_pull_with_retry
+setlocal
 set RETRY_COUNT=0
-:push_retry
-git push origin main && goto :push_success
+
+:pull_retry
+git pull origin main && (
+    echo ✓ Successfully pulled latest changes
+    endlocal
+    exit /b 0
+)
 
 set /a RETRY_COUNT=%RETRY_COUNT%+1
 if %RETRY_COUNT% geq 3 (
-    echo ❌ Failed to push updates to GitHub after 3 attempts
-    pause
+    echo ❌ Failed to pull updates after 3 attempts
+    endlocal
     exit /b 1
 )
-echo ⚠ Push failed, retrying in 5 seconds... (Attempt %RETRY_COUNT% of 3)
+echo ⚠ Pull failed, retrying in 5 seconds... (Attempt %RETRY_COUNT% of 3)
 timeout /t 5 /nobreak >nul
-goto :push_retry
+goto :pull_retry
 
-:push_success
-:: Step 5: Notify completion
-echo ✅ All updates completed successfully and pushed to GitHub.
+:run_python_scripts
+echo 📰 Running Python scripts for News updates...
+py generate_latest_html.py || goto :python_error
+py generate_24hr_html.py || goto :python_error
+py generate_7day_html.py || goto :python_error
+py generate_news_hourly_updated.py || goto :python_error
+py generate_psl_live.py || goto :python_error
+py generate_top5_sports.py || goto :python_error
+py generate_sports_weekly.py || goto :python_error
+
+echo 🎥 Running Python scripts for YouTube updates...
+py generate_youtube_iframes.py || goto :python_error
+
+exit /b 0
+
+:python_error
+echo ❌ Error running %errorlevel% python script
 pause
+exit /b 1
+
+:git_push_with_retry
+setlocal
+set RETRY_COUNT=0
+
+:: Stage all HTML files
+git add *.html || (
+    echo ❌ Failed to stage .html files
+    endlocal
+    exit /b 1
+)
+
+:: Create commit
+git commit -m "🔄 Auto-update: Generated HTML files [%date% %time%]" || (
+    echo ❌ Failed to commit changes
+    endlocal
+    exit /b 1
+)
+
+:push_retry
+git push origin main && (
+    echo ✓ Successfully pushed changes
+    endlocal
+    exit /b 0
+)
+
+set /a RETRY_COUNT=%RETRY_COUNT%+1
+if %RETRY_COUNT% geq 3 (
+    echo ❌ Failed to push updates after 3 attempts
+    endlocal
+    exit /b 1
+)
+echo ⚠ Push failed, retrying in 10 seconds... (Attempt %RETRY_COUNT% of 3)
+timeout /t 10 /nobreak >nul
+goto :push_retry
